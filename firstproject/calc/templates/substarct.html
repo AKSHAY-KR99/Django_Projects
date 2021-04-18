@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/style1.css'%}">
+</head>
+<body>
+<img src="{%static 'images/id_back.jpg'%}" alt="">
+    <div class="container">
+        <form action="{%url 'sub'%}" method="post">
+            {%csrf_token%}
+            <h3>Substract Numbers</h3>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="">Enter number 1 </label>
+                    <input type="text" name="num1">
+                </div>
+                <div class="mb-3">
+                    <label for="">Enter number 2 </label>
+                    <input type="text" name="num2">
+                </div>
+                <input type="submit">
+            </div>
+            {%if res%}
+            <h4>Result is {{res}}</h4>
+            {%endif%}
+        </form>
+    </div>
+</body>
+</html>

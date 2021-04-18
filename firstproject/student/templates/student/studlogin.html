@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/style1.css'%}">
+</head>
+<body>
+
+    <h1>Student Log in</h1>
+    <form action="" method="post">
+        {%csrf_token%}
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="Log in">
+
+    </form>
+
+</body>
+</html>
+
+
+<!--math/prime
+print a number is prime or not in server-->
+<!--print prime numbers between given limit-->

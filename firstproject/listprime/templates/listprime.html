@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="mb-5">
+            <form action="{%url 'list'%}" method="post">
+                {%csrf_token%}
+                <h3>Print Prime Numbers between Given limits</h3>
+                <div>
+                 <label for="">Enter the limit 1 </label>
+                 <input type="text" name="num1">
+                </div>
+                <div>
+                    <label for="">Enter the limit 2 </label>
+                    <input type="text" name="num2">
+                </div>
+                <input type="submit" value="Get result">
+
+            </form>
+            {%if res%}
+            <h4>Prime numbers between the given limits are {{res}}</h4>
+            {%endif%}
+
+        </div>
+    </div>
+</body>
+</html>

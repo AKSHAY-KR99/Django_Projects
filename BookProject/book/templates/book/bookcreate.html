@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create Book Here..!!</h1>
+<h3>Welcome {{request.user}}</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <form action="" method="post">
+                {%csrf_token%}
+                <table>
+                    {{form.as_p}}
+                </table>
+
+            <input type="submit" value="Create">
+            </form>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div>
+
+    <table class="table table-success table-striped">
+
+        <tr>
+            <th>Book name</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Pages</th>
+            <th>category</th>
+            <th>Delete</th>
+            <th>View</th>
+            <th>Update</th>
+
+        </tr>
+        {%for book in books%}
+        <tr>
+            <td>{{book.book_name}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.price}}</td>
+            <td>{{book.pages}}</td>
+            <td>{{book.category}}</td>
+            <td>
+                <a href="{%url 'delete' book.id%}"><input type="button" class="btn btn-primary" value="Delete"></a>
+            </td>
+            <td>
+                <a href="{%url 'view' book.id %}"><input type="button" class="btn btn-primary" value="View"></a>
+            </td>
+            <td>
+                <a href="{%url 'edit' book.id %}"><input type="button" class="btn btn-primary" value="update"></a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+        </div>
+
+
+
+    </div>
+</div>
+
+</body>
+</html>

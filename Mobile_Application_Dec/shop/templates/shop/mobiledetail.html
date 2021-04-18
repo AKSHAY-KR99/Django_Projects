@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{%extends 'shop/base.html'%}
+
+{%block body_block%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-4">
+            <div>
+                <img src="{{mobile.img.url}}" height="200px" alt="">
+            </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4">
+
+            <h4>{{mobile.mobile_name}}</h4>
+            <h4>{{mobile.brand}}</h4>
+            <h5>{{mobile.price}}/-</h5>
+            <h5>{{mobile.model_name}}</h5>
+            <h5>{{mobile.spec}}</h5>
+            <h5>{{mobile.description}}</h5>
+            <a href="{%url 'orders' mobile.id %}" class="btn btn-primary">Purchase item</a>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/prime.css'%}">
+</head>
+<body>
+    <h1>
+        Check prime numbers
+    </h1>
+    <div class="container">
+        <form action="{%url 'check'%}" method="post">
+            {%csrf_token%}
+        <div class="main mb-3">
+            <label>Enter the number
+            </label>
+            <input type="text" name="input">
+        </div>
+        <div>
+            <input type="submit" value="get result">
+        </div>
+        </form>
+    </div>
+</body>
+</html>

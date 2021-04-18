@@ -1,0 +1,39 @@
+shop/brands
+    # get ===> list all brands
+    # post===> create new brands
+    status :::: Completed
+
+shop/brands/edit/1
+    get==> fetch the corresponding field
+    post=> update that field
+    Status ::: Pending
+shop/brands/delete/1
+    post==>delete the field
+    status :::: Pending
+
+=========== MOBILE ===============
+
+shop/mobiles
+    get ==> list all mobiles
+    post ==> create new
+
+shop/mobiles/detail/1
+    get==>
+    post==>
+
+
+
+========== user authentication ===========
+
+mobiles/userregistration
+
+
+========== order ============
+mobiles/order
+
+        item purchase===> same item
+        purhase ====> succesfully redirect=> list
+
+mobile/cart
+    list my orders
+

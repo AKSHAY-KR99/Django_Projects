@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{%extends 'shop/base.html'%}
+
+{%block body_block%}
+<div class="container">
+<div class="row">
+    <div class="col-12 col-lg-4">
+         <form action="" method="post">
+            {%csrf_token%}
+            {{form.as_p}}
+
+
+            <input type="submit" value="Add Brand" class="btn btn-secondary mt-3">
+        </form>
+    </div>
+    <div class="col-12 col-lg-4">
+
+        <table class="table table-success table-striped brand">
+            <tr>
+                <th>Brand Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {%for brand in brands%}
+            <tr>
+                <td>{{brand.brand_name}}</td>
+                <td>
+                    <a href="{%url 'edit' brand.id %}"><input type="submit" class="btn btn-secondary btn-sm" value="Edit"></a>
+                </td>
+                <td>
+                    <a href="{%url 'delete' brand.id %}"><input type="submit" class="btn btn-secondary btn-sm" value="Delete"></a>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+
+    </div>
+    <div class="col-12 col-lg-4"></div>
+</div>
+</div>
+
+{% endblock %}

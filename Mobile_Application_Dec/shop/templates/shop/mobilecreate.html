@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html'%}
+      {%block body_block%}
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <h3><u>Enter Mobile Details and Create</u></h3>
+                <form action="" method="post" class="mt-4" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <table>
+                        {{form.as_table}}
+                    </table>
+                    <input type="submit" value="Create" class="btn btn-secondary mt-3">
+
+                </form>
+                <a href="{%url 'editlist'%}">
+                    <input type="submit" value="Edit" class="btn btn-secondary mt-3">
+                    </a>
+
+            </div>
+            <div class="col-12 col-lg-6"></div>
+<!--            <div class="col-12"></div>-->
+            
+        </div>
+
+      {% endblock %}
