@@ -35,5 +35,7 @@ urlpatterns = [
     path("mobiles/edit_mobiledetails/<int:id>",edit_mobiledetails,name="editmobiledetails"),
     path("mobiles/delete_mobile/<int:id>",delete_mobile,name="delete_mobile"),
     path("error",error_page,name="error"),
-    path("mobiles/products",product_list,name="product")
+    path("mobiles/products",product_list,name="product"),
+    path("mobiles/cancel-order/<int:id>",order_cancel,name="ordercancel"),
+    path("mobiles/order/order-view/<int:id>",view_order_item,name="vieworder")
 ]

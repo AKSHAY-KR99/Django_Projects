@@ -9,7 +9,7 @@ from django.shortcuts import render,redirect
 from shop.forms import BrandCreateForm,MobileCreateForm,UserRegForm,OrderForm
 from .models import Brands,Mobile,Order
 from django.contrib.auth import authenticate,login,logout
-from .decorators import admin_permission_required,admin_permission_required_id,login_authentication_id,login_authentication
+from .decorators import admin_permission_not_required_id,admin_permission_required,admin_permission_required_id,login_authentication_id,login_authentication
 
 @admin_permission_required
 def brand_view(request):
@@ -192,3 +192,29 @@ def product_list(request):
     context={}
     context["products"]=products
     return render(request,"shop/product_list.html",context)
+
+
+@login_authentication_id
+@admin_permission_not_required_id
+def order_cancel(request,id):
+    mobile=Order.objects.get(id=id)
+    form=OrderForm(instance=mobile)
+    context={}
+    context["form"]=form
+    if request.method=='POST':
+        form=OrderForm(request.POST,instance=mobile)
+        if form.is_valid():
+            form.save()
+            return redirect("cart")
+        else:
+            form=OrderForm(request.POST)
+            context["form"]=form
+            return render(request, "shop/order.html", context)
+    return render(request,"shop/order_cancel.html",context)
+
+@login_authentication_id
+def view_order_item(request,id):
+    order=Order.objects.get(id=id)
+    context={}
+    context["order"]=order
+    return render(request,"shop/view_order_item.html",context)

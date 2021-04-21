@@ -33,3 +33,12 @@ def login_authentication_id(func):
         else:
             return func(request,id)
     return wrapper
+
+
+def admin_permission_not_required_id(func):
+    def wrapper(request,id):
+        if request.user.is_superuser:
+            return redirect("error")
+        else:
+            return func(request,id)
+    return wrapper

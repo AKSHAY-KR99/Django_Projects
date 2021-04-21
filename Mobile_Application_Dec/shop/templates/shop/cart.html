@@ -25,8 +25,8 @@
             <td>{{order.user}}</td>
             <td>{{order.status}}</td>
             <td>{{order.product.price}}</td>
-            <td><a href="#">cancel?</a></td>
-            <td><a href="#">view</a></td>
+            <td><a href="{%url 'ordercancel' order.id %}" class="btn btn-primary btn-sm">cancel?</a></td>
+            <td><a href="{% url 'vieworder' order.id%}" class="btn btn-primary btn-sm">view</a></td>
 
         </tr>
         {% endfor %}
