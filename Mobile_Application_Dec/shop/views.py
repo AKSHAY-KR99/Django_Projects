@@ -147,7 +147,7 @@ def cart(request):
         print(order.product,order.user,order.status)
     context={}
     context["orders"]=orders
-    return render(request,"shop/cart.html")
+    return render(request,"shop/cart.html",context)
 
 
 @admin_permission_required

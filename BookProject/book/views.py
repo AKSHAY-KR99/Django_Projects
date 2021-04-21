@@ -3,6 +3,11 @@ from .forms import BookCreateFrom,UserRegFrom,LoginForm
 from .models import Book
 from django.contrib.auth import authenticate,login
 
+from django.views.generic import ListView,CreateView,UpdateView,DetailView,DeleteView
+from django.urls import reverse_lazy
+
+
+
 # Create your views here.
 def book_create(request):
     form=BookCreateFrom()
@@ -26,7 +31,6 @@ def book_create(request):
 
     return render(request,'book/bookcreate.html',context)
 
-
 def book_delete(request,id):
     book=Book.objects.get(id=id)
     book.delete()
@@ -37,7 +41,6 @@ def book_view(request,id):
     context={}
     context["book"]=book
     return render(request,"book/bookdetail.html",context)
-
 
 def book_update(request,id):
     book=Book.objects.get(id=id)
@@ -52,7 +55,6 @@ def book_update(request,id):
 
 
     return render(request,"book/bookedit.html",context)
-
 
 def registration(request):
     form=UserRegFrom
@@ -89,3 +91,48 @@ def login_view(request):
                 return render(request, 'book/login.html', context)
 
     return render(request,'book/login.html',context)
+
+
+
+# list_view
+
+# create_view
+
+# detial_view
+
+# update_view
+
+# delete_view
+
+
+class Books(ListView):
+    model = Book
+    context_object_name = "books"
+    template_name = "book/bookcreate.html"
+
+
+class BookCreate(CreateView):
+    model = Book
+    form_class = BookCreateFrom
+    template_name = "book/bookcreate.html"
+    success_url = reverse_lazy("clslist")
+
+
+class BookUpdateView(UpdateView):
+    model = Book
+    form_class = BookCreateFrom
+    template_name = "book/bookedit.html"
+    success_url = reverse_lazy("clslist")
+
+
+class BookDetail(DetailView):
+    model = Book
+    template_name = "book/bookdetail.html"
+
+
+class BookDelete(DeleteView):
+    model = Book
+    template_name = "book/bookdelete.html"
+    success_url = reverse_lazy("clslist")
+
+

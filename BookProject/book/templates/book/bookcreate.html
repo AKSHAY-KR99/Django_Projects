@@ -46,13 +46,13 @@
             <td>{{book.pages}}</td>
             <td>{{book.category}}</td>
             <td>
-                <a href="{%url 'delete' book.id%}"><input type="button" class="btn btn-primary" value="Delete"></a>
+                <a href="{%url 'clsdelete' book.id %}"><input type="button" class="btn btn-primary" value="Delete"></a>
             </td>
             <td>
-                <a href="{%url 'view' book.id %}"><input type="button" class="btn btn-primary" value="View"></a>
+                <a href="{%url 'clsdetail' book.id %}"><input type="button" class="btn btn-primary" value="View"></a>
             </td>
             <td>
-                <a href="{%url 'edit' book.id %}"><input type="button" class="btn btn-primary" value="update"></a>
+                <a href="{%url 'clsupdate' book.id %}"><input type="button" class="btn btn-primary" value="update"></a>
             </td>
 
         </tr>

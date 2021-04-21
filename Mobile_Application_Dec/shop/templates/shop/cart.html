@@ -10,19 +10,24 @@
 </h2>
     <table class="table table-striped">
         <tr>
+            <th>Image</th>
             <th>Product</th>
             <th>User</th>
             <th>Status</th>
+            <th>Price</th>
             <th>Cancel</th>
             <th>View</th>
         </tr>
         {% for order in orders %}
         <tr>
+            <td><img src="{{order.product.img.url}}" alt="" height="50px"></td>
             <td>{{order.product}}</td>
             <td>{{order.user}}</td>
             <td>{{order.status}}</td>
+            <td>{{order.product.price}}</td>
             <td><a href="#">cancel?</a></td>
             <td><a href="#">view</a></td>
+
         </tr>
         {% endfor %}
     </table>
