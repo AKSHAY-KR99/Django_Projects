@@ -16,6 +16,8 @@
             <h6>SATATUS : {{order.status}}</h6>
             <h6>ADDRESS : {{order.deliveryAddress}}</h6>
             <h6>PRICE : {{order.product.price}}/-</h6>
+            <h6>MODEL : {{order.product.model_name}}</h6>
+            <h6>SPEC : {{order.product.spec}},{{order.product.description}}</h6>
                 <a href="{%url 'cart'%}" class="btn btn-primary btn-sm">Back to Orders</a>
             </center>
 

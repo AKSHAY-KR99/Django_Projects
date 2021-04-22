@@ -3,7 +3,7 @@ from .forms import BookCreateFrom,UserRegFrom,LoginForm
 from .models import Book
 from django.contrib.auth import authenticate,login
 
-from django.views.generic import ListView,CreateView,UpdateView,DetailView,DeleteView
+from django.views.generic import TemplateView,ListView,CreateView,UpdateView,DetailView,DeleteView
 from django.urls import reverse_lazy
 
 
@@ -104,35 +104,79 @@ def login_view(request):
 
 # delete_view
 
-
-class Books(ListView):
+# listing of all books
+class Books(TemplateView):
     model = Book
-    context_object_name = "books"
     template_name = "book/bookcreate.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        books=self.model.objects.all()
+        self.context["books"]=books
+        return render(request,self.template_name,self.context)
 
-
-class BookCreate(CreateView):
+# create view
+class BookCreate(TemplateView):
     model = Book
     form_class = BookCreateFrom
     template_name = "book/bookcreate.html"
-    success_url = reverse_lazy("clslist")
+    context={}
+    def get(self, request, *args, **kwargs):
+        self.context["form"]=self.form_class
+        return render(request,self.template_name,self.context)
+    def post(self,request,*args,**kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("clslist")
+        else:
+            self.context["form"]=form
+            return render(request, self.template_name, self.context)
 
-
-class BookUpdateView(UpdateView):
+# updation of books
+class BookUpdateView(TemplateView):
     model = Book
     form_class = BookCreateFrom
     template_name = "book/bookedit.html"
-    success_url = reverse_lazy("clslist")
+    context={}
+    def get_object(self,id):
+        return self.model.objects.get(id=id)
+
+    def get(self, request, *args, **kwargs):
+        book=self.get_object(kwargs["pk"])
+        form=self.form_class(instance=book)
+        self.context["form"]=form
+        return render(request,self.template_name,self.context)
+    def post(self, request, *args, **kwargs):
+        book=self.get_object(kwargs["pk"])
+        form=self.form_class(request.POST,instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect("clslist")
+        else:
+            self.context["form"]=form
+            return render(request, self.template_name, self.context)
 
 
-class BookDetail(DetailView):
+# book detail
+class BookDetail(TemplateView):
     model = Book
     template_name = "book/bookdetail.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        book=self.model.objects.get(id=kwargs["pk"])
+        self.context["book"]=book
+        return render(request,self.template_name,self.context)
 
 
-class BookDelete(DeleteView):
+
+# delete
+class BookDelete(TemplateView):
     model = Book
     template_name = "book/bookdelete.html"
-    success_url = reverse_lazy("clslist")
+    context={}
+    def get(self, request, *args, **kwargs):
+        book = self.model.objects.get(id=kwargs["pk"])
+        book.delete()
+        return redirect("clslist")
 
 

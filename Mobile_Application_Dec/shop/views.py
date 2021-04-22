@@ -195,7 +195,6 @@ def product_list(request):
 
 
 @login_authentication_id
-@admin_permission_not_required_id
 def order_cancel(request,id):
     mobile=Order.objects.get(id=id)
     form=OrderForm(instance=mobile)
