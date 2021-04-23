@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import user_logout,LogIn,UserRegistration,EditMobiles,BrandView,BrandEdit,BrandDelete,CreateMobile,ListMobile,ViewMobile,ListEditMobile,DeleteMobile
+from .views import ProductViews,CartProductDetails,CartCancel,CartView,OrderItem,user_logout,LogIn,UserRegistration,EditMobiles,BrandView,BrandEdit,BrandDelete,CreateMobile,ListMobile,ViewMobile,ListEditMobile,DeleteMobile
 
 urlpatterns = [
     path("brands",BrandView.as_view(),name="brandview"),
@@ -29,5 +29,11 @@ urlpatterns = [
     path("mobiles/edit-mobile/<int:id>",EditMobiles.as_view(),name="editmobile"),
     path("mobiles/user-reg",UserRegistration.as_view(),name="userregistration"),
     path("mobiles/login",LogIn.as_view(),name="userlogin"),
-    path("mobiles/logout",user_logout,name="userlogout")
+    path("mobiles/logout",user_logout,name="userlogout"),
+    path("mobiles/order-item/<int:id>",OrderItem.as_view(),name="orderitem"),
+    path("mobiles/cart",CartView.as_view(),name="cartview"),
+    path("mobiles/cart/cancel/<int:id>",CartCancel.as_view(),name="cartcancel"),
+    path("mobiles/cart/view/<int:id>",CartProductDetails.as_view(),name="cartitemview"),
+    path("mobiles/products",ProductViews.as_view(),name="products")
+
 ]

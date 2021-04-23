@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from .forms import BrandCreateForm,MobileCreateForm,UserRegFrom
-from .models import Brands,Mobile
+from .forms import BrandCreateForm,MobileCreateForm,UserRegFrom,OrderForm
+from .models import Brands,Mobile,Order
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
@@ -187,4 +187,87 @@ class LogIn(TemplateView):
 def user_logout(request):
     logout(request)
     return redirect("userlogin")
+
+
+class OrderItem(TemplateView):
+    model=Mobile
+    form_class=OrderForm
+    template_name = "shop/order.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        product=self.model.objects.get(id=kwargs["id"])
+        self.context["product"]=product
+        form=self.form_class(initial={"product": product,"user": request.user})
+        self.context["form"]=form
+        return render(request,self.template_name,self.context)
+    def post(self, request, *args, **kwargs):
+        form=OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("cartview")
+        else:
+            product = self.model.objects.get(id=kwargs["id"])
+            self.context["product"] = product
+            form = self.form_class(initial={"product": product, "user": request.user})
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
+
+
+class CartView(TemplateView):
+    model=Order
+    template_name = "shop/cart.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        username=request.user
+        orders=self.model.objects.all().filter(user=username)
+        self.context["orders"]=orders
+        return render(request,self.template_name,self.context)
+
+
+class CartCancel(TemplateView):
+    model=Order
+    form_class=OrderForm
+    template_name = "shop/order_cancel.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        mobile=self.model.objects.get(id=kwargs["id"])
+        form=self.form_class(instance=mobile)
+        self.context["form"]=form
+        return render(request,self.template_name,self.context)
+    def post(self, request, *args, **kwargs):
+        mobile = self.model.objects.get(id=kwargs["id"])
+        form=self.form_class(request.POST,instance=mobile)
+        if form.is_valid():
+            form.save()
+            return redirect("cartview")
+        else:
+            form=OrderForm(request.POST)
+            self.context["form"]=form
+            return render(request, self.template_name, self.context)
+
+
+
+class CartProductDetails(TemplateView):
+    model=Order
+    template_name = "shop/view_order_item.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        order=self.model.objects.get(id=kwargs["id"])
+        self.context["order"]=order
+        return render(request,self.template_name,self.context)
+
+
+
+
+class ProductViews(TemplateView):
+    model=Mobile
+    template_name = "shop/product_list.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        products=self.model.objects.all()
+        self.context["products"]=products
+        return render(request,self.template_name,self.context)
+
+
+
 

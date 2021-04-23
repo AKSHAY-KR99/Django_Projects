@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{%extends 'shop/base.html'%}
+
+{%block body_block%}
+
+<h2>
+    <center>
+        Your Cart
+    </center>
+</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>Cancel</th>
+            <th>View</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td><img src="{{order.product.img.url}}" alt="" height="50px"></td>
+            <td>{{order.product}}</td>
+            <td>{{order.user}}</td>
+            <td>{{order.status}}</td>
+            <td>{{order.product.price}}</td>
+            <td><a href="{%url 'cartcancel' order.id %}" class="btn btn-primary btn-sm">cancel?</a></td>
+            <td><a href="{%url 'cartitemview' order.id %}" class="btn btn-primary btn-sm">view</a></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{%url 'listmobiles'%}" class="btn btn-primary btn-sm mt-3">
+        Back to Home
+    </a>
+
+{% endblock %}

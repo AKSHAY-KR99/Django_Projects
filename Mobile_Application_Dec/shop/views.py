@@ -143,8 +143,6 @@ def order_item(request,id):
 def cart(request):
     username=request.user
     orders=Order.objects.all().filter(user=username)
-    for order in orders:
-        print(order.product,order.user,order.status)
     context={}
     context["orders"]=orders
     return render(request,"shop/cart.html",context)
