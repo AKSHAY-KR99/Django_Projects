@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{%extends 'bill/base_bill.html'%}
+
+{%block body_block%}
+
+<h3>Search By Customer Name</h3>
+<form action="" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Get Bill" class="btn btn-success">
+    <table class="table">
+        <tr>
+            <th>Bill No.</th>
+            <th>Bill Date</th>
+            <th>Customer name</th>
+            <th>Ph. No.</th>
+            <th>Total</th>
+            <th>Product</th>
+        </tr>
+        {% for order in orders%}
+        <tr>
+            <td>{{order.bill_number.bill_number}}</td>
+            <td>{{order.bill_number.bill_date}}</td>
+            <td>{{order.bill_number.customer_name}}</td>
+            <td>{{order.bill_number.phone_number}}</td>
+            <td>{{order.bill_number.bill_total}}</td>
+            <td>{{order.product.product_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+
+{% endblock %}

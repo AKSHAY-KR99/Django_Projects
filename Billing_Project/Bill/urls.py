@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Bill.views import OrderCreateView
+from Bill.views import OrderCreateView,SearchByName,OrderLineView,SelectSearch,SearchByBill,SearchByDate
 
 urlpatterns = [
-    path("create-order",OrderCreateView.as_view(),name="create-order")
+    path("create-order",OrderCreateView.as_view(),name="create-order"),
+    path("orderline/<str:bill_num>",OrderLineView.as_view(),name="orderline"),
+    path("searchby",SelectSearch.as_view(),name="searchby"),
+    path("searchbybill",SearchByBill.as_view(),name="searchbybill"),
+    path("searchbydate",SearchByDate.as_view(),name="searchbydate"),
+    path("searchbyname",SearchByName.as_view(),name="searchbyname")
 ]

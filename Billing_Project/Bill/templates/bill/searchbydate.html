@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{%extends 'bill/base_bill.html'%}
+
+{%block body_block%}
+
+<h2>Search By Date Purchased</h2>
+<form action="" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Get Bill" class="btn btn-success">
+{{orders}}
+
+</form>
+
+{% endblock %}

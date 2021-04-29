@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{%extends 'bill/base_bill.html'%}
+
+{%block body_block%}
 
 <h2>Add Customer Information</h2>
 <form action="" method="post">
     {%csrf_token%}
-    {{form.as_p}}
-    <input type="submit" value="Create bill" class="btn btn-primary btn-sm">
+    <table class="mt-4">
+    {{form.as_table}}
+    </table>
+
+    <input type="submit" value="Create bill" class="btn btn-primary btn-sm mt-3">
 
 
 </form>
 
-
-</body>
-</html>
+{% endblock %}

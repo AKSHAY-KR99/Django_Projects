@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{%extends 'bill/base_bill.html'%}
+
+{%block body_block%}
+
+<h3>Create Bill</h3>
+
+<form action="" method="post">
+    {%csrf_token%}
+    <table>
+    {{form.as_table}}
+    </table>
+    <input type="submit" value="Add" class="btn btn-primary btn-sm">
+</form>
+
+<table class="table mt-4">
+    <tr>
+        <th>Bill No.</th>
+        <th>Product Name</th>
+        <th>Qty</th>
+        <th>Amount</th>
+    </tr>
+    {%for item in items%}
+    <tr>
+
+        <td>{{item.bill_number}}</td>
+        <td>{{item.product.product_name}}</td>
+        <td>{{item.product_qty}}</td>
+        <td>{{item.amount}}</td>
+
+
+    </tr>
+    {%endfor%}
+</table>
+
+{%if total%}
+<h3 style="text-align:right">Total :{{total}}</h3>
+{%endif%}
+{% endblock %}
