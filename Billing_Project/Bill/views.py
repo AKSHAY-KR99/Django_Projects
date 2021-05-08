@@ -1,11 +1,19 @@
+from django.contrib.auth import login
 from django.shortcuts import render,redirect
-from Bill.forms import OrderCreationForm,OrderLineForm,SearchByBillNumber,SearchByDateForm,SearchByNameForm
+from Bill.forms import OrderCreationForm, OrderLineForm, UserRegForm, LoginForm
 from django.views.generic import TemplateView
 from Bill.models import Order,OrderLines,Purchase,Product
-
+from django.contrib.auth.models import User
+from .filters import OrderFilter
+from .decorators import amdin_only
 from django.db.models import Sum
+from django.utils.decorators import method_decorator
+from Bill.authentication import EmailAuthBackend
 # Create your views here.
 
+
+
+@method_decorator(amdin_only,name='dispatch')
 class OrderCreateView(TemplateView):
     model=Order
     form_class=OrderCreationForm
@@ -35,7 +43,7 @@ class OrderCreateView(TemplateView):
 
 
 
-
+@method_decorator(amdin_only,name='dispatch')
 class OrderLineView(TemplateView):
     model = OrderLines
     form_class = OrderLineForm
@@ -52,6 +60,7 @@ class OrderLineView(TemplateView):
         ctotal=total["amount__sum"]
         self.context["total"]=ctotal
         self.context["items"]=querySet
+        self.context["bill_number"]=bill_number
         return render(request,self.template_name,self.context)
 
     def post(self, request, *args, **kwargs):
@@ -76,66 +85,84 @@ class OrderLineView(TemplateView):
 
 
 
+@method_decorator(amdin_only,name='dispatch')
+class BillGenerate(TemplateView):
+    def get(self, request, *args, **kwargs):
+        bill_number=kwargs.get("billnum")
+        total = OrderLines.objects.filter(bill_number__bill_number=bill_number).aggregate(Sum('amount'))
+        grandtotal = total["amount__sum"]
+        order=Order.objects.get(bill_number=bill_number)
+        order.bill_total=grandtotal
+        order.save()
+        querySet = OrderLines.objects.filter(bill_number__bill_number=bill_number)
+        context={}
+        context["items"]=querySet
+        context["total"]=grandtotal
+        return render(request,"bill/customer_bill.html",context)
 
-class SelectSearch(TemplateView):
-    template_name = "bill/selectsearchtype.html"
+
+@method_decorator(amdin_only,name='dispatch')
+class SearchView(TemplateView):
+    model=Order
+    template_name = "bill/search.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        orders=self.model.objects.all()
+        orderfilter=OrderFilter(request.GET,queryset=orders)
+        self.context['filter']=orderfilter
+        return render(request,self.template_name,self.context)
+
+
+
+class UserRegView(TemplateView):
+    model=User
+    form_class=UserRegForm
+    template_name = "bill/userreg.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        form=self.form_class()
+        self.context["form"]=form
+        return render(request,self.template_name,self.context)
+
+    def post(self, request, *args, **kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("userlogin")
+
+
+class UserLogin(TemplateView):
+    form_class=LoginForm
+    template_name = "bill/login.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+        form=self.form_class()
+        self.context["form"]=form
+        return render(request,self.template_name,self.context)
+
+    def post(self, request, *args, **kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            email=form.cleaned_data.get("email")
+            password=form.cleaned_data.get("password")
+            obj=EmailAuthBackend()
+            user=obj.authenticate(request,username=email,password=password)
+            if user:
+                login(request,user)
+
+            return redirect("home")
+
+
+
+class HomePageView(TemplateView):
+    template_name = "bill/home.html"
     def get(self, request, *args, **kwargs):
         return render(request,self.template_name)
 
 
 
-class SearchByBill(TemplateView):
-    model=OrderLines
-    form_class=SearchByBillNumber
-    template_name = "bill/searchbybill.html"
-    context={}
-    def get(self, request, *args, **kwargs):
-        form=self.form_class
-        self.context["form"]=form
-        return render(request,self.template_name,self.context)
-    def post(self, request, *args, **kwargs):
-        form=self.form_class(request.POST)
-        if form.is_valid():
-            bill_num=form.cleaned_data.get("bill_number")
-        orders=self.model.objects.filter(bill_number__bill_number=bill_num)
-        self.context['orders']=orders
-        return redirect("searchbybill")
-
-
-class SearchByDate(TemplateView):
-    model=OrderLines
-    form_class=SearchByDateForm
-    template_name = "bill/searchbydate.html"
-    context={}
-    def get(self, request, *args, **kwargs):
-        form=self.form_class
-        self.context["form"]=form
-        return render(request,self.template_name,self.context)
-
-    def post(self, request, *args, **kwargs):
-        form=self.form_class(request.POST)
-        if form.is_valid():
-            date=form.cleaned_data.get("date")
-        orders=self.model.objects.filter(bill_number__bill_date=date)
-        self.context["orders"]=orders
-        return redirect("searchbydate")
 
 
 
 
-class SearchByName(TemplateView):
-    model=OrderLines
-    form_class=SearchByNameForm
-    template_name = "bill/searchbyname.html"
-    context={}
-    def get(self, request, *args, **kwargs):
-        form=self.form_class
-        self.context["form"]=form
-        return render(request,self.template_name,self.context)
-    def post(self, request, *args, **kwargs):
-        form=self.form_class(request.POST)
-        if form.is_valid():
-            name=form.cleaned_data.get("customer_name")
-        orders=self.model.objects.filter(bill_number__customer_name=name)
-        self.context["orders"]=orders
-        return redirect("searchbyname")
+

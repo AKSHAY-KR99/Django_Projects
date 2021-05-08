@@ -3,16 +3,6 @@
 
 {%block body_block%}
 
-<h3>Create Bill</h3>
-
-<form action="" method="post">
-    {%csrf_token%}
-    <table>
-    {{form.as_table}}
-    </table>
-    <input type="submit" value="Add" class="btn btn-primary btn-sm">
-</form>
-
 <table class="table mt-4">
     <tr>
         <th>Bill No.</th>
@@ -32,13 +22,8 @@
     </tr>
     {%endfor%}
 </table>
-
-{%if total%}
-<h3 style="text-align:right">Total :{{total}}</h3>
-<center>
-    <a href="{% url 'completeorder' bill_number %}" class="btn btn-success">Generate Bill</a>
-</center>
-{%endif%}
-
+<div style="text-align:center" class="Grandtotal">
+    Grand Total<h3>{{total}}</h3>
+</div>
 
 {% endblock %}

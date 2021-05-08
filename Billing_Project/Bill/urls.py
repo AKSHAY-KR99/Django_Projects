@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-from Bill.views import OrderCreateView,SearchByName,OrderLineView,SelectSearch,SearchByBill,SearchByDate
+from django.shortcuts import render
+from Bill.views import SearchView, OrderCreateView, OrderLineView, BillGenerate, UserRegView, UserLogin, HomePageView
 
 urlpatterns = [
     path("create-order",OrderCreateView.as_view(),name="create-order"),
     path("orderline/<str:bill_num>",OrderLineView.as_view(),name="orderline"),
-    path("searchby",SelectSearch.as_view(),name="searchby"),
-    path("searchbybill",SearchByBill.as_view(),name="searchbybill"),
-    path("searchbydate",SearchByDate.as_view(),name="searchbydate"),
-    path("searchbyname",SearchByName.as_view(),name="searchbyname")
+    path("genertebill/<str:billnum>",BillGenerate.as_view(),name="completeorder"),
+    path("search",SearchView.as_view(),name="search"),
+    path("error",lambda request:render(request,"bill/error.html"),name="error"),
+    path("user-reg",UserRegView.as_view(),name="user-reg"),
+    path("login",UserLogin.as_view(),name="userlogin"),
+    path("home",HomePageView.as_view(),name="home")
 ]

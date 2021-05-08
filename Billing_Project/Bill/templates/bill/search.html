@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{%extends 'bill/base_bill.html'%}
+
+{%block body_block%}
+
+<h2>Search your bill</h2>
+<form action="" method="get">
+    <table>
+    {{filter.form.as_table}}
+    </table>
+    <input type="submit" value="Search" class="btn btn-success">
+
+
+</form>
+<table class="table">
+    <tr>
+        <th>Bill No.</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Ph No</th>
+        <th>Total</th>
+    </tr>
+
+        {% for order in filter.qs %}
+            <tr>
+            <td>{{order.bill_number}}</td>
+            <td>{{order.bill_date}}</td>
+            <td>{{order.customer_name}}</td>
+            <td>{{order.phone_number}}</td>
+            <td>{{order.bill_total}}</td>
+            </tr>
+        {% endfor %}
+
+</table>
+
+{% endblock %}

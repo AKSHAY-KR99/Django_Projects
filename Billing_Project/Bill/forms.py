@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 from Bill.models import Order,Purchase
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class OrderCreationForm(ModelForm):
     class Meta:
@@ -28,3 +29,15 @@ class SearchByDateForm(forms.Form):
 
 class SearchByNameForm(forms.Form):
     customer_name=forms.CharField(max_length=50)
+
+
+
+class UserRegForm(UserCreationForm):
+    class Mata:
+        model=User
+        fields=['first_name','last_name','username','email','password1','password2']
+
+
+class LoginForm(forms.Form):
+    email=forms.EmailField(max_length=50)
+    password=forms.CharField(max_length=50)
