@@ -24,3 +24,9 @@ class BookModelSerializar(ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
+
+
+
+class LoginSerializer(serializers.Serializer):
+    username=serializers.CharField()
+    password=serializers.CharField()

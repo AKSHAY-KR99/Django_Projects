@@ -3,10 +3,14 @@ from .forms import BrandCreateForm,MobileCreateForm,UserRegFrom,OrderForm
 from .models import Brands,Mobile,Order
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate,login,logout
+from .decorators import amdin_only,user_authenticated,no_admin
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 
 # brand view
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class BrandView(TemplateView):
     model=Brands
     form_class=BrandCreateForm
@@ -31,6 +35,8 @@ class BrandView(TemplateView):
 
 
 # brand edit
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class BrandEdit(TemplateView):
     model=Brands
     form_class=BrandCreateForm
@@ -52,6 +58,8 @@ class BrandEdit(TemplateView):
             return render(request, self.template_name, self.context)
 
 # brand delete
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class BrandDelete(TemplateView):
     model=Brands
     form_class=BrandCreateForm
@@ -64,6 +72,8 @@ class BrandDelete(TemplateView):
 
 
 # MobileCreations
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class CreateMobile(TemplateView):
     model=Mobile
     form_class=MobileCreateForm
@@ -84,6 +94,8 @@ class CreateMobile(TemplateView):
 
 
 # editMobilesSpec
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class ListEditMobile(TemplateView):
     model = Mobile
     template_name = "shop/edit_list.html"
@@ -95,6 +107,8 @@ class ListEditMobile(TemplateView):
 
 
 # deletemobile
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class DeleteMobile(TemplateView):
     model = Mobile
     template_name = "shop/edit_list.html"
@@ -106,6 +120,8 @@ class DeleteMobile(TemplateView):
 
 
 # edit Mobiles
+@method_decorator(user_authenticated,name='dispatch')
+@method_decorator(amdin_only,name='dispatch')
 class EditMobiles(TemplateView):
     model = Mobile
     form_class=MobileCreateForm
@@ -129,6 +145,7 @@ class EditMobiles(TemplateView):
 
 
 # mobilelist
+@method_decorator(user_authenticated,name='dispatch')
 class ListMobile(TemplateView):
     model = Mobile
     template_name = "shop/listmobiles.html"
@@ -140,6 +157,7 @@ class ListMobile(TemplateView):
 
 
 # view the mobiles
+@method_decorator(user_authenticated,name='dispatch')
 class ViewMobile(TemplateView):
     model = Mobile
     template_name = "shop/mobiledetail.html"
@@ -183,12 +201,12 @@ class LogIn(TemplateView):
             return render(request,self.template_name)
 
 
-
 def user_logout(request):
     logout(request)
     return redirect("userlogin")
 
-
+@method_decorator(no_admin,name='dispatch')
+@method_decorator(user_authenticated,name='dispatch')
 class OrderItem(TemplateView):
     model=Mobile
     form_class=OrderForm
@@ -213,6 +231,7 @@ class OrderItem(TemplateView):
             return render(request, self.template_name, self.context)
 
 
+@method_decorator(user_authenticated,name='dispatch')
 class CartView(TemplateView):
     model=Order
     template_name = "shop/cart.html"
@@ -223,7 +242,8 @@ class CartView(TemplateView):
         self.context["orders"]=orders
         return render(request,self.template_name,self.context)
 
-
+@method_decorator(no_admin,name='dispatch')
+@method_decorator(user_authenticated,name='dispatch')
 class CartCancel(TemplateView):
     model=Order
     form_class=OrderForm
@@ -246,7 +266,7 @@ class CartCancel(TemplateView):
             return render(request, self.template_name, self.context)
 
 
-
+@method_decorator(user_authenticated,name='dispatch')
 class CartProductDetails(TemplateView):
     model=Order
     template_name = "shop/view_order_item.html"
@@ -258,7 +278,7 @@ class CartProductDetails(TemplateView):
 
 
 
-
+@method_decorator(user_authenticated,name='dispatch')
 class ProductViews(TemplateView):
     model=Mobile
     template_name = "shop/product_list.html"
@@ -267,6 +287,10 @@ class ProductViews(TemplateView):
         products=self.model.objects.all()
         self.context["products"]=products
         return render(request,self.template_name,self.context)
+
+
+def error_page(request):
+    return render(request,"shop/errorpage.html")
 
 
 

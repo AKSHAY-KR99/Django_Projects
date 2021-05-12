@@ -1,4 +1,4 @@
-"""restbook URL Configuration
+"""restBank URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,19 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# 351d1d23876fe9e54d8ae03d1961a72e305e14ba token
 from django.contrib import admin
-from django.urls import path
-from .views import book_list, book_details, BookList, BookDetails, BookListMixin, BookDetailMixin, LoginApi, LogoutApi
+from django.urls import path, include
 
 urlpatterns = [
-        path("fbooks/",book_list),
-        path("fbooks/<int:id>",book_details),
-        path("books/",BookList.as_view()),
-        path("books/<int:id>",BookDetails.as_view()),
-        path("mixinbook/",BookListMixin.as_view()),
-        path("mixinbook/<int:pk>",BookDetailMixin.as_view()),
-        path("loginapi",LoginApi.as_view()),
-        path("logoutapi",LogoutApi.as_view())
-
+    path('admin/', admin.site.urls),
+    path("api/banks/v1/",include("bank.urls"))
 ]

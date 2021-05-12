@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 
 # Create your views here.
 
 # superuser: hp         password:hp123
 from book.models import Book
-from book.serializer import BookSerializer, BookModelSerializar
+from book.serializer import BookSerializer, BookModelSerializar,LoginSerializer
 from django.http import JsonResponse, HttpResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
@@ -13,7 +14,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, mixins, generics
 from rest_framework import authentication, permissions
-
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import authtoken
+from rest_framework.authtoken.models import Token
 
 @csrf_exempt
 def book_list(request):
@@ -106,7 +109,7 @@ class BookListMixin(mixins.ListModelMixin, generics.GenericAPIView, mixins.Creat
 
 class BookDetailMixin(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
                       mixins.DestroyModelMixin):
-    authentication_classes = [authentication.BasicAuthentication, authentication.SessionAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAdminUser]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -119,3 +122,45 @@ class BookDetailMixin(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+
+
+
+# django Rest frame work
+# for cross platform application
+#     function based, class based
+#     mixins
+#     serializer
+#     model serializer
+#     basic authentication(username, password)
+#     session(csrf token)
+#     token based authentication
+
+
+
+class LoginApi(APIView):
+    def post(self,request):
+        serializer=LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data.get("username")
+            password = serializer.validated_data.get("password")
+            user=authenticate(request,username=username,password=password)
+            if user:
+                login(request,user)
+                token,created=Token.objects.get_or_create(user=user)
+                return Response({"token":token.key},status=status.HTTP_200_OK)
+        # login
+
+
+
+
+class LogoutApi(APIView):
+    def get(self,request):
+        logout(request)
+        request.user.auth_token.delete()
+
+
+
+
+
