@@ -1,13 +1,11 @@
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render
-from rest_framework import status
+from django.contrib.auth import authenticate, login, logout
+from rest_framework import status, permissions
+from rest_framework.authentication import TokenAuthentication
 
 from .serializer import BankModelSerializer, BankLoginSerializer
 from rest_framework.views import APIView
 from .models import Bank
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
-from rest_framework import authtoken
 from rest_framework.authtoken.models import Token
 # Create your views here.
 
@@ -27,6 +25,8 @@ class BankList(APIView):
 
 
 class BankDetails(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self,id):
         return Bank.objects.get(id=id)
@@ -63,5 +63,9 @@ class BankLogin(APIView):
                 return Response({"token":token.key},status=status.HTTP_201_CREATED)
 
 
+class LogoutApi(APIView):
+    def get(self,request):
+        logout(request)
+        request.user.auth_token.delete()
 
 

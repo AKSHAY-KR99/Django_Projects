@@ -1,4 +1,4 @@
-"""restBank URL Configuration
+"""restBankApp URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import BankList,BankDetails,BankLogin,LogoutApi
+from .views import UserregistrationMixin, BankAccountCreationMixin, BalanceCheck, BankLogin, LogoutApi, WithdrawApi, \
+    DepositApi
 
 urlpatterns = [
-    path("bank/",BankList.as_view()),
-    path("bank/<int:id>",BankDetails.as_view()),
-    path("loginapi",BankLogin.as_view()),
-    path("logoutapi",LogoutApi.as_view())
-
+    path("user-reg/",UserregistrationMixin.as_view()),
+    path("account-create/",BankAccountCreationMixin.as_view()),
+    path('balance/<int:accno>',BalanceCheck.as_view()),
+    path('login/',BankLogin.as_view()),
+    path('logout/',LogoutApi.as_view()),
+    path('withdraw/<int:accno>',WithdrawApi.as_view()),
+    path('deposit/<int:accno>',DepositApi.as_view())
 ]

@@ -35,7 +35,7 @@ class SearchByNameForm(forms.Form):
 class UserRegForm(UserCreationForm):
     class Mata:
         model=User
-        fields=['first_name','last_name','username','email','password1','password2']
+        fields=['username','email','password1','password2']
 
 
 class LoginForm(forms.Form):
