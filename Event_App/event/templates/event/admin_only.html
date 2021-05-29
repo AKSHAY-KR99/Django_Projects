@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<div class="row">
+    <div class="col-12 col-lg-3 mt-5">
+        <div class="container">
+            <p class="text-center">
+                <b>
+                Admin Area
+                </b>
+            </p>
+            <div class="d-grid gap-2">
+                <a href="{% url 'category' %}" class="btn btn-success btn-sm" >Add New Event Category</a>
+                <a href="{% url 'eventcreation' %}" class="btn btn-success btn-sm">Add New Event</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6  shadow mb-4 rounded" style="background-color:#ededed; ">
+        <div class="container">
+            <h3 class="mt-4" style="color:#2d3e59">
+                <center><b><u> List of all Events </u></b></center>
+            </h3>
+
+            <form action="" method="post" class="mt-5">
+                {%csrf_token%}
+                <table class="table">
+                    {% for event in events %}
+                    <tr>
+                        <td>
+                            {{event.event_name}}
+                        </td>
+                        <td>
+                            <a href="{% url 'deleteeventform' event.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'editeventform' event.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-3"></div>
+
+</div>
+
+{% endblock %}
