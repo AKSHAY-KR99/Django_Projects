@@ -21,3 +21,16 @@ class Event(models.Model):
 
     def __str__(self):
         return self.event_name
+
+
+class EventBook(models.Model):
+    event=models.ForeignKey(Event,on_delete=models.CASCADE)
+    user=models.CharField(max_length=100)
+    number_of_tickets=models.IntegerField(default=1)
+    booking_date=models.DateField(auto_now=True)
+    Mobile_number=models.IntegerField()
+    choices=[
+        ("booked","booked"),
+        ("cancel","cancel")
+    ]
+    status=models.CharField(max_length=10,choices=choices,default="booked")

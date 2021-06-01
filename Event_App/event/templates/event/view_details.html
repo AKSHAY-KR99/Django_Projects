@@ -15,7 +15,7 @@
                     <img src="{{event.img.url}}" height="300px" alt="">
                 </div>
                 <!--                <div class="text-center">-->
-                <table class="table table-bordered mt-3 eventtb" style="width:600px;margin-left: auto;
+                <table class="table table-striped mt-3" style="width:600px;margin-left: auto;
                                      margin-right: auto;">
 
                     <tr>
@@ -57,7 +57,7 @@
 
         </div>
         <center>
-            <a href="#" class="btn btn-success btn-sm mt-4 mb-5">Book Ticket(s) for the Event</a>
+            <a href="{% url 'bookevent' event.id %}" class="btn btn-success btn-sm mt-4 mb-5">Book Ticket(s) for the Event</a>
         </center>
 
     </div>

@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 
 from event.views import show_hipe,EventCategoryView,EventEdit,EventDelete,EventCreationView,ListEvents,\
-        EventEditListAdmin,EditEventForm,DeleteEventForm,ViewEventDetails
+        EventEditListAdmin,EditEventForm,DeleteEventForm,ViewEventDetails,UserRegistrationView,\
+        LogIn,user_logout,EventBookingView,SuccessPage
 
 urlpatterns = [
         path("",show_hipe),
@@ -29,7 +30,12 @@ urlpatterns = [
         path('eventedit',EventEditListAdmin.as_view(),name='eventedit'),
         path('eventedit/edit/<int:id>',EditEventForm.as_view(),name='editeventform'),
         path('eventedit/delete/<int:id>',DeleteEventForm.as_view(),name='deleteeventform'),
-        path('eventlist/viewevent/<int:id>',ViewEventDetails.as_view(),name='viewevent')
+        path('eventlist/viewevent/<int:id>',ViewEventDetails.as_view(),name='viewevent'),
+        path('user-reg',UserRegistrationView.as_view(),name='user-reg'),
+        path('login',LogIn.as_view(),name='login'),
+        path('logout',user_logout,name='logout'),
+        path('eventlist/viewevent/bookevent/<int:id>',EventBookingView.as_view(),name='bookevent'),
+        path('eventlist/success/<int:id>',SuccessPage.as_view(),name="success")
 
 
 

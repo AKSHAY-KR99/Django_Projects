@@ -129,6 +129,8 @@ class UserRegView(TemplateView):
         if form.is_valid():
             form.save()
             return redirect("userlogin")
+        else:
+            print("noooo")
 
 
 class UserLogin(TemplateView):
