@@ -101,7 +101,7 @@ class BillGenerate(TemplateView):
         return render(request,"bill/customer_bill.html",context)
 
 
-@method_decorator(amdin_only,name='dispatch')
+# @method_decorator(amdin_only,name='dispatch')
 class SearchView(TemplateView):
     model=Order
     template_name = "bill/search.html"

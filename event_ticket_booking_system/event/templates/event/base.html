@@ -135,7 +135,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="nav-link text-secondary">
+                    <a href="{% url 'search' %}" class="nav-link text-secondary">
                         <svg class="svg-icon search-icon" width="28" height="28" aria-labelledby="title desc" role="img"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search
                             Icon</title>
@@ -206,7 +206,7 @@
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                             <use xlink:href="#people-circle"/>
                         </svg>
-                        {{request.user}} : logout
+                        {{request.user}}
                     </a>
                 </li>
             </ul>

@@ -21,7 +21,7 @@ from Bill.views import SearchView, OrderCreateView, OrderLineView, BillGenerate,
 urlpatterns = [
     path("create-order",OrderCreateView.as_view(),name="create-order"),
     path("orderline/<str:bill_num>",OrderLineView.as_view(),name="orderline"),
-    path("genertebill/<str:billnum>",BillGenerate.as_view(),name="completeorder"),
+    path("genertebill/<str:billnum>" ,BillGenerate.as_view(),name="completeorder"),
     path("search",SearchView.as_view(),name="search"),
     path("error",lambda request:render(request,"bill/error.html"),name="error"),
     path("user-reg",UserRegView.as_view(),name="user-reg"),

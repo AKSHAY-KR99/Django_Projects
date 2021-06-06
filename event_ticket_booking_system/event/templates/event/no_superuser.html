@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<div class="container">
+
+    <div class="text-right">
+        <p>
+        <h3>Hi {{request.user}}</h3> <br>
+        <p>You are an Admin. this page cannot access by the admin, So back to Home page</p>
+        </p>
+        <div class="mt-4 mb-5 text-right">
+            <a href="{% url 'eventlist' %}" class="btn btn-outline-danger btn-sm"> Back to Home </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

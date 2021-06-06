@@ -43,3 +43,6 @@ class Feedbackform(ModelForm):
             'feedback': forms.TextInput(attrs={"class": "feedbackinput"}),
 
         }
+
+class DailyCollectionBydate(forms.Form):
+    date=forms.DateField(widget=forms.TextInput(attrs={'type':'date'}))
