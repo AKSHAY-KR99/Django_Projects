@@ -3,7 +3,7 @@
 
 {%block body_block%}
 
-<form action="" method="post">
+<form action="">
     <h1 class="mb-4" style="font-family: 'Open Sans Condensed', sans-serif;">Confirmation Message
     </h1>
 
@@ -29,8 +29,8 @@
         <div class="col-12 col-4">
             <div class="container">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="#" class="btn btn-warning btn-sm mt-2">Go to your Bookings</a>
-                    <a href="#" class="btn btn-warning btn-sm mt-2 mb-5">Go to Homepage</a>
+                    <a href="{% url 'orders' %}" class="btn btn-warning btn-sm mt-2">Go to your Bookings</a>
+                    <a href="{% url 'eventlist' %}" class="btn btn-warning btn-sm mt-2 mb-5">Go to Homepage</a>
                 </div>
             </div>
         </div>

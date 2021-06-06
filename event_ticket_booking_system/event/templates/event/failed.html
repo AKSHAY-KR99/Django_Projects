@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+<div class="container">
+<p>
+
+    <h3>Booking failed.....!!!</h3> <br>
+    <h6>Insufficient seats. sorry for the inconvenience</h6>
+    <div class="mt-4 mb-5 text-center">
+            <a href="{% url 'eventlist' %}" class="btn btn-outline-danger btn-sm"> Back to home </a>
+        </div>
+
+</p>
+</div>
+{% endblock %}

@@ -28,9 +28,10 @@ class OrderForm(ModelForm):
     class Meta:
         model=Order
         fields='__all__'
-        # widgets={
-        #     "product":forms.TextInput(attrs={"class":"form-control"}),
-        #     "deliveryAddress": forms.TextInput(attrs={"class": "form-control"}),
-        #     "user": forms.TextInput(attrs={"class": "form-control"}),
-        #     # "status": forms.TextInput(attrs={"class": "form-control"})
-        #     }
+        widgets={
+            "product":forms.TextInput(attrs={"class":"form-control"}),
+            "deliveryAddress": forms.TextInput(attrs={"class": "form-control"}),
+            "user": forms.TextInput(attrs={"class": "form-control"}),
+            'status':forms.
+            # "status": forms.TextInput(attrs={"class": "form-control"})
+            }

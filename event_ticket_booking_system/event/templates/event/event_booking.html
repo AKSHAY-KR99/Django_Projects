@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<div class="row">
+
+
+    <div class="col-12 col-4"></div>
+    <div class="col-12 col-4">
+
+        <div class="container">
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3 class="mb-4" style="font-family: 'Poppins', sans-serif;">Hi {{request.user}}, Book your tickets for {{event}}
+                </h3>
+
+                <table class="table table-striped">
+                    {{form.as_table}}
+                </table>
+                <div>
+
+                    <input type="submit" value="Book Your Ticket(s)" class="btn btn-success btn-sm px-4">
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="col-12 col-4"></div>
+
+</div>
+
+{% endblock %}

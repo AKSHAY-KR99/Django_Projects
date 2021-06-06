@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<div class="container">
+    <ul>
+        {% for fb in fbs %}
+        <div>
+            <li><h5>{{fb.user}}</h5>
+                <p>
+                    {{fb.feedback}}
+                </p></li>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+<div class="mt-4 mb-5 text-right">
+    <a href="{% url 'eventedit' %}" class="btn btn-outline-danger btn-sm"> Back to Home </a>
+</div>
+
+{% endblock %}

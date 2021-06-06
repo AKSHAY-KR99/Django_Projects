@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+
+<form action="" method="post">
+
+    <div class="row">
+
+        <div class="col-12 col-3"></div>
+        <div class="col-12 col-6">
+            <div class="container">
+                <div class="text-center">
+                    <img src="{{event.event.img.url}}" alt="" height="300px">
+                </div>
+
+                <table class="table">
+
+                    <tr>
+                        <th>Event name</th>
+                        <td>{{event.event.event_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Team/Performer</th>
+                        <td>{{event.event.team_or_performer}}</td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td>{{event.event.location}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Event</th>
+                        <td>{{event.event.date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Booked Date</th>
+                        <td>{{event.booking_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>{{event.event.time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Price</th>
+                        <td>{{event.total}}/-</td>
+                    </tr>
+                    <tr>
+                        <th>Number Tickets Booked</th>
+                        <td>{{event.no_of_tickets}} No.s</td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+        </div>
+        <div class="mt-4 mb-5 text-center">
+            <a href="{% url 'orders' %}" class="btn btn-outline-danger btn-sm"> Back to orders </a>
+        </div>
+        <div class="col-12 col-3"></div>
+
+    </div>
+
+</form>
+
+
+{% endblock %}

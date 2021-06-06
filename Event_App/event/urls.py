@@ -18,7 +18,7 @@ from django.urls import path
 
 from event.views import show_hipe,EventCategoryView,EventEdit,EventDelete,EventCreationView,ListEvents,\
         EventEditListAdmin,EditEventForm,DeleteEventForm,ViewEventDetails,UserRegistrationView,\
-        LogIn,user_logout,EventBookingView,SuccessPage
+        LogIn,user_logout,EventBookingView,SuccessPage,Orders
 
 urlpatterns = [
         path("",show_hipe),
@@ -35,7 +35,8 @@ urlpatterns = [
         path('login',LogIn.as_view(),name='login'),
         path('logout',user_logout,name='logout'),
         path('eventlist/viewevent/bookevent/<int:id>',EventBookingView.as_view(),name='bookevent'),
-        path('eventlist/success/<int:id>',SuccessPage.as_view(),name="success")
+        path('eventlist/success/<int:id>',SuccessPage.as_view(),name="success"),
+        path('orders',Orders.as_view(),name='orders')
 
 
 

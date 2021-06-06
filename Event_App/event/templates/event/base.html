@@ -36,6 +36,7 @@
 
 
 
+
     </style>
 
 
@@ -75,7 +76,8 @@
 <header class="px-3 py-2 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <a href="{% url 'eventedit' %}"
+               class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                 <svg class="bi me-2" width="40" height="32">
                     <use xlink:href="#bootstrap"/>
                 </svg>
@@ -84,15 +86,6 @@
 
             <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
 
-                <li>
-                    <a href="{% url 'logout' %}" class="nav-link text-white">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#people-circle"/>
-                        </svg>
-
-                      {{request.user}} : logout
-
-                    </a>
                 </li>
                 <li>
                     <a href="{% url 'eventlist' %}" class="nav-link text-secondary">
@@ -103,14 +96,14 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#speedometer2"/>
-                        </svg>
-                        Dashboard
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="#" class="nav-link text-white">-->
+<!--                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">-->
+<!--                            <use xlink:href="#speedometer2"/>-->
+<!--                        </svg>-->
+<!--                        Dashboard-->
+<!--                    </a>-->
+<!--                </li>-->
                 <!--                <li>-->
                 <!--                    <a href="#" class="nav-link text-white">-->
                 <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"-->
@@ -124,28 +117,28 @@
                 <!--                    </a>-->
                 <!--                </li>-->
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{% url 'orders'%}" class="nav-link text-white">
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                             <use xlink:href="#table"/>
                         </svg>
                         Orders
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#grid"/>
-                        </svg>
-                        Products
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="#" class="nav-link text-white">-->
+<!--                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">-->
+<!--                            <use xlink:href="#grid"/>-->
+<!--                        </svg>-->
+<!--                        Products-->
+<!--                    </a>-->
+<!--                </li>-->
 
                 <li>
-                    <a href="{% url 'eventedit' %}" class="nav-link text-white">
+                    <a href="{% url 'logout' %}" class="nav-link text-white">
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                             <use xlink:href="#people-circle"/>
                         </svg>
-                        Admin Only
+                        {{request.user}} : logout
                     </a>
                 </li>
             </ul>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<form action="">
+    <h1 class="mb-4" style="font-family: 'Open Sans Condensed', sans-serif;">Confirmation Message
+    </h1>
+
+    <p class="text-left" style="font-size: 18px;">
+        BOOKING DATE : {{event.booking_date}} <br> <br>
+
+        Hey <b>{{request.user}}</b>,
+        you are succesfully booked<b> {{event.no_of_tickets}}</b> ticket(s) of the event
+        <b>{{event.event}}</b> by <b> {{event.event.team_or_performer}}</b> on the date
+        {{event.event.date}},{{event.event.time}} in <b> {{event.event.location}}</b> total amount of ticket is
+        <b>{{event.total}}</b>. Enjoy the day...!!
+        <br><br> Thank you for Using the App, have a nice day
+    </p>
+    <div class="text-center mt-4 mb-4">
+        <img src="{{event.event.img.url}}" alt="" height="180px"><br>
+        <b>{{event.event}}</b>
+
+    </div>
+    <div class="row">
+
+        <div class="col-12 col-4"></div>
+        <div class="col-12 col-4">
+            <div class="container">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="{% url 'orders' %}" class="btn btn-warning btn-sm mt-2">Go to your Bookings</a>
+                    <a href="{% url 'eventlist' %}" class="btn btn-warning btn-sm mt-2 mb-5">Go to Homepage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-4"></div>
+
+    </div>
+
+</form>
+
+{% endblock %}

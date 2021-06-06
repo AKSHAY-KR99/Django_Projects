@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+<form action="" method="post">
+    {%csrf_token%}
+
+<div>
+    <h1 class="mb-4" style="font-family: 'Open Sans Condensed', sans-serif;"><b><u>{{request.user}}</u></b><br>your Bookings..!!
+    </h1>
+    <div class="container mt-4">
+    <div class="mt-4">
+
+    <table class="table">
+        <tr>
+            <th>Image</th>
+            <th>Event name</th>
+            <th>Event date</th>
+            <th>Booking date</th>
+            <th>status</th>
+
+        </tr>
+        {%for event in events%}
+        <tr>
+            <td><img src="{{event.event.img.url}}" height="40px" alt=""></td>
+            <td>{{event.event}}</td>
+            <td>{{event.event.date}}</td>
+            <td>{{event.booking_date}}</td>
+            <td>{{event.status}}</td>
+        </tr>
+        {%endfor%}
+
+    </table>
+    </div>
+
+
+    </div>
+
+</div>
+</form>
+{% endblock %}

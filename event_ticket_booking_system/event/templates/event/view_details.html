@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{%extends 'event/base.html'%}
+
+{%block body_block%}
+
+<div class="row">
+
+    <div class="col-12 col-4"></div>
+    <div class="col-12 col-4">
+
+        <div class="container">
+
+            <div class="text-center">
+                <div>
+                    <img src="{{event.img.url}}" height="300px" alt="">
+                </div>
+                <!--                <div class="text-center">-->
+                <table class="table table-striped mt-3" style="width:600px;margin-left: auto;
+                                     margin-right: auto;">
+
+                    <tr>
+                        <th>Event name</th>
+                        <td>{{event.event_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td>{{event.category}}</td>
+                    </tr>
+                    <tr>
+                        <th>Team/Performer </th>
+                        <td>{{event.team_or_performer}}</td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td>{{event.location}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Event</th>
+                        <td>{{event.date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>{{event.time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ticket Price (per head)</th>
+                        <td>{{event.ticket_price}}/-</td>
+                    </tr>
+                    <tr>
+                        <th>Number Seats</th>
+                        <td>{{event.total_seats}} No.s</td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <th>Available Seats</th>-->
+<!--                        <td>{{event.avlbl_seats}} No.s</td>-->
+<!--                    </tr>-->
+
+                </table>
+                <!--                </div>-->
+            </div>
+
+        </div>
+        <center>
+            <a href="{% url 'bookevent' event.id %}" class="btn btn-success btn-sm mt-4 mb-5">Book Ticket(s) for the Event</a>
+        </center>
+
+    </div>
+    <div class="col-12 col-4"></div>
+
+</div>
+
+
+{% endblock %}
