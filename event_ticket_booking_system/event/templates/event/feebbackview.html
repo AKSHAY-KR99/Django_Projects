@@ -6,17 +6,18 @@
 <div class="container">
     <ul>
         {% for fb in fbs %}
-        <div>
+        <div class="mt-5">
             <li><h5>{{fb.user}}</h5>
                 <p>
-                    {{fb.feedback}}
+                    {{fb.feedback}} <br>
+                    <a href="{% url 'del_feedback' fb.id %}" class="btn btn-outline-danger btn-sm mt-3"> Delete feedback</a>
                 </p></li>
         </div>
         {% endfor %}
     </ul>
 </div>
-<div class="mt-4 mb-5 text-right">
-    <a href="{% url 'eventedit' %}" class="btn btn-outline-danger btn-sm"> Back to Home </a>
+<div class="mt-5 mb-5 text-center ">
+    <a href="{% url 'eventedit' %}" class="btn btn-outline-success btn-sm"> Back to Home </a>
 </div>
 
 {% endblock %}

@@ -18,7 +18,8 @@ from django.urls import path
 from .views import EventCategoryView, EventCategoryEdit, EventCategoryDelete, EventCreationView, ListEvents, \
     ViewEventDetails, DeleteEventForm, EditEventForm, EventEditListAdmin, \
     UserRegistrationView, LogIn, user_logout, EventBookingView, SuccessPage,Orders,OrderDetails,\
-    AddFeedback,ViewFeedBackAdmin,SearchEvent,DailyCollection,Amount,superuser_required,login_required,no_superuser
+    AddFeedback,ViewFeedBackAdmin,SearchEvent,DailyCollection,Amount,superuser_required,\
+    login_required,no_superuser,DeleteFeedback
 
 urlpatterns = [
     path('category', EventCategoryView.as_view(), name='category'),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('orderdetails/<int:id>',OrderDetails.as_view(),name='orderdetails'),
     path('feedback',AddFeedback.as_view(),name='feedback'),
     path('feedbackview',ViewFeedBackAdmin.as_view(),name='viewfeedback'),
+    path('feedback/del/<int:id>',DeleteFeedback.as_view(),name='del_feedback'),
     path('search',SearchEvent.as_view(),name='search'),
     path('dailycollection',DailyCollection.as_view(),name='dailycollection'),
     path('amount/<date>',Amount.as_view(),name='amt'),
